@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.base.studiesspring.domain.Product;
+import project.base.studiesspring.requests.ProductPostRequestBody;
+import project.base.studiesspring.requests.ProductPutRequestBody;
 import project.base.studiesspring.service.ProductService;
 import project.base.studiesspring.util.Dateutil;
 
@@ -31,11 +33,11 @@ public class ProductController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<Product> findById(@PathVariable long id){
         log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
-        return ResponseEntity.ok(productService.findById(id));
+        return ResponseEntity.ok(productService.findByIdOrThrowBadRequestException(id));
     }
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody Product product){
-        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
+    public ResponseEntity<Product> save(@RequestBody ProductPostRequestBody productPostRequestBody){
+        return new ResponseEntity<>(productService.save(productPostRequestBody), HttpStatus.CREATED);
     }
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id){
@@ -44,9 +46,9 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Product product){
+    public ResponseEntity<Void> replace(@RequestBody ProductPutRequestBody productPutRequestBody){
         log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
-        productService.replace(product);
+        productService.replace(productPutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
