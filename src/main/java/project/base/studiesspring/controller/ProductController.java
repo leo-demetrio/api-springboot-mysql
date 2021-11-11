@@ -35,6 +35,11 @@ public class ProductController {
         log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(productService.findByIdOrThrowBadRequestException(id));
     }
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<Product>> findById(@RequestParam String name){
+        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
+        return ResponseEntity.ok(productService.findByName(name));
+    }
     @PostMapping
     public ResponseEntity<Product> save(@RequestBody ProductPostRequestBody productPostRequestBody){
         return new ResponseEntity<>(productService.save(productPostRequestBody), HttpStatus.CREATED);
