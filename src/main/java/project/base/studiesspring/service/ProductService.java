@@ -24,6 +24,9 @@ public class ProductService {
 
         return productRepository.findAll();
     }
+    public List<Product> findByName(String name) {
+        return productRepository.findByName(name);
+    }
 
     public Product findByIdOrThrowBadRequestException(long id) {
         return productRepository.findById(id)
