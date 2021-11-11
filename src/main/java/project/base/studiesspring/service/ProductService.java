@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import project.base.studiesspring.domain.Product;
+import project.base.studiesspring.mapper.ProductMapper;
 import project.base.studiesspring.repository.ProductRepository;
 import project.base.studiesspring.requests.ProductPostRequestBody;
 import project.base.studiesspring.requests.ProductPutRequestBody;
@@ -30,7 +31,7 @@ public class ProductService {
     }
 
     public Product save(ProductPostRequestBody productPostRequestBody) {
-        Product product = Product.builder().name(productPostRequestBody.getName()).build();
+        Product product = ProductMapper.INSTANCE.toProduct(productPostRequestBody);
         return productRepository.save(product);
     }
 
@@ -40,10 +41,8 @@ public class ProductService {
 
     public void replace(ProductPutRequestBody productPutRequestBody) {
         findByIdOrThrowBadRequestException(productPutRequestBody.getId());
-        Product product = Product.builder()
-                .id(productPutRequestBody.getId())
-                .name(productPutRequestBody.getName())
-                .build();
+        Product product = ProductMapper.INSTANCE.toProduct(productPutRequestBody);
+        product.setId(product.getId());
         productRepository.save(product);
     }
 }
