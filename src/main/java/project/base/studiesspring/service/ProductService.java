@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import project.base.studiesspring.domain.Product;
+import project.base.studiesspring.exception.BadRequestException;
 import project.base.studiesspring.mapper.ProductMapper;
 import project.base.studiesspring.repository.ProductRepository;
 import project.base.studiesspring.requests.ProductPostRequestBody;
@@ -30,7 +31,7 @@ public class ProductService {
 
     public Product findByIdOrThrowBadRequestException(long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product not found"));
+                .orElseThrow(() -> new BadRequestException("Product not found"));
     }
 
     public Product save(ProductPostRequestBody productPostRequestBody) {
