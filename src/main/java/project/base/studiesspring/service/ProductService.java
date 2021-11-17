@@ -12,6 +12,7 @@ import project.base.studiesspring.requests.ProductPostRequestBody;
 import project.base.studiesspring.requests.ProductPutRequestBody;
 
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -34,6 +35,7 @@ public class ProductService {
                 .orElseThrow(() -> new BadRequestException("Product not found"));
     }
 
+    @Transactional
     public Product save(ProductPostRequestBody productPostRequestBody) {
         Product product = ProductMapper.INSTANCE.toProduct(productPostRequestBody);
         return productRepository.save(product);
