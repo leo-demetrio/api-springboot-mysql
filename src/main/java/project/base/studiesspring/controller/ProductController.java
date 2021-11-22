@@ -11,6 +11,7 @@ import project.base.studiesspring.requests.ProductPutRequestBody;
 import project.base.studiesspring.service.ProductService;
 import project.base.studiesspring.util.Dateutil;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.findByName(name));
     }
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody ProductPostRequestBody productPostRequestBody){
+    public ResponseEntity<Product> save(@RequestBody @Valid ProductPostRequestBody productPostRequestBody){
         return new ResponseEntity<>(productService.save(productPostRequestBody), HttpStatus.CREATED);
     }
     @DeleteMapping(path = "/{id}")
