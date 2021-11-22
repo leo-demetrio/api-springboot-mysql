@@ -2,6 +2,8 @@ package project.base.studiesspring.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +29,9 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> list(){
+    public ResponseEntity<Page<Product>> list(Pageable pageable){
         log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
-        return new ResponseEntity<>(productService.listAll(), HttpStatus.OK);
+        return new ResponseEntity<>(productService.listAll(pageable), HttpStatus.OK);
     }
     @GetMapping(path = "/{id}")
     public ResponseEntity<Product> findById(@PathVariable long id){
