@@ -1,16 +1,15 @@
 package project.base.studiesspring.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import project.base.studiesspring.domain.Product;
 import project.base.studiesspring.exception.BadRequestException;
 import project.base.studiesspring.mapper.ProductMapper;
 import project.base.studiesspring.repository.ProductRepository;
 import project.base.studiesspring.requests.ProductPostRequestBody;
 import project.base.studiesspring.requests.ProductPutRequestBody;
-
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -22,9 +21,9 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Product> listAll() {
+    public Page<Product> listAll(Pageable pageble) {
 
-        return productRepository.findAll();
+        return productRepository.findAll(pageble);
     }
     public List<Product> findByName(String name) {
         return productRepository.findByName(name);
