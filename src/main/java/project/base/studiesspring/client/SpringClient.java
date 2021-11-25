@@ -3,8 +3,7 @@ package project.base.studiesspring.client;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import project.base.studiesspring.domain.Product;
 
@@ -28,5 +27,37 @@ public class SpringClient {
                         new ParameterizedTypeReference<>() {});
         log.info(productList.getBody());
 
+        Product productBuilder = Product.builder().name("Leo post").build();
+        Product productSaved = new RestTemplate().postForObject("http://localhost:8080/api/v1/products",productBuilder, Product.class);
+        log.info(productSaved);
+
+        Product productPost = Product.builder().name("Leo post headers").build();
+        ResponseEntity<Product> productSavedWithHeaders =
+                new RestTemplate().exchange("http://localhost:8080/api/v1/products",
+                        HttpMethod.POST,
+                        new HttpEntity<>(productPost,createJsonHeader()),
+                        Product.class);
+        log.info(productSavedWithHeaders);
+
+        Product productToUpdate = productSavedWithHeaders.getBody();
+        productToUpdate.setName("Leo update");
+        ResponseEntity<Void> productUpdated =
+                new RestTemplate().exchange("http://localhost:8080/api/v1/products",
+                        HttpMethod.PUT,
+                        new HttpEntity<>(productToUpdate,createJsonHeader()),
+                        void.class);
+        log.info(productUpdated);
+
+        ResponseEntity<Void> productDeleted =
+                new RestTemplate().exchange("http://localhost:8080/api/v1/products/{id}",
+                        HttpMethod.DELETE,
+                        new HttpEntity<>(productToUpdate,createJsonHeader()),
+                        void.class, productToUpdate.getId());
+        log.info(productUpdated);
+    }
+    public static HttpHeaders createJsonHeader() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        return httpHeaders;
     }
 }
