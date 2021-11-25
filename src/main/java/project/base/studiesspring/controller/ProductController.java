@@ -33,6 +33,13 @@ public class ProductController {
         log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(productService.listAll(pageable), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<Product>> listAll(){
+        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
+        return new ResponseEntity<>(productService.listAllNonPageable(), HttpStatus.OK);
+    }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<Product> findById(@PathVariable long id){
         log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
