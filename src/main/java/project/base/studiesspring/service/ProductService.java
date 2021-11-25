@@ -25,6 +25,9 @@ public class ProductService {
 
         return productRepository.findAll(pageble);
     }
+    public List<Product> listAllNonPageable() {
+        return productRepository.findAll();
+    }
     public List<Product> findByName(String name) {
         return productRepository.findByName(name);
     }
@@ -50,4 +53,5 @@ public class ProductService {
         product.setId(product.getId());
         productRepository.save(product);
     }
+
 }
