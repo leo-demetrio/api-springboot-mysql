@@ -12,6 +12,7 @@ import project.base.studiesspring.requests.ProductPostRequestBody;
 import project.base.studiesspring.requests.ProductPutRequestBody;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 
