@@ -30,24 +30,24 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Page<Product>> list(Pageable pageable){
-        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
+//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(productService.listAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping(path = "/all")
     public ResponseEntity<List<Product>> listAll(){
-        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
+//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(productService.listAllNonPageable(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Product> findById(@PathVariable long id){
-        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
+//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(productService.findByIdOrThrowBadRequestException(id));
     }
     @GetMapping(path = "/find")
-    public ResponseEntity<List<Product>> findById(@RequestParam String name){
-        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
+    public ResponseEntity<List<Product>> findByName(@RequestParam String name){
+//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(productService.findByName(name));
     }
     @PostMapping
@@ -56,13 +56,13 @@ public class ProductController {
     }
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id){
-        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
+//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         productService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping
     public ResponseEntity<Void> replace(@RequestBody ProductPutRequestBody productPutRequestBody){
-        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
+//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         productService.replace(productPutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
