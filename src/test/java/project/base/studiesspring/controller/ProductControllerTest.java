@@ -150,4 +150,5 @@ class ProductControllerTest {
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
 
+
 }
