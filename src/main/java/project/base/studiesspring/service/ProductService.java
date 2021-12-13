@@ -1,6 +1,7 @@
 package project.base.studiesspring.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class ProductService {
 
     private final ProductRepository productRepository;
 
     public Page<Product> listAll(Pageable pageble) {
-
+        log.info("ServiceProduct", productRepository.findAll());
         return productRepository.findAll(pageble);
     }
     public List<Product> listAllNonPageable() {

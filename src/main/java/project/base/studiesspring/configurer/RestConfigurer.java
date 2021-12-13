@@ -13,7 +13,7 @@ public class RestConfigurer implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         PageableHandlerMethodArgumentResolver pageableHandler = new PageableHandlerMethodArgumentResolver();
-        pageableHandler.setFallbackPageable(PageRequest.of(1,3));
+        pageableHandler.setFallbackPageable(PageRequest.of(0,3));
         resolvers.add(pageableHandler);
     }
 }

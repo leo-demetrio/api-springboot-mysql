@@ -6,6 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import project.base.studiesspring.domain.Product;
 import project.base.studiesspring.requests.ProductPostRequestBody;
@@ -30,7 +33,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Page<Product>> list(Pageable pageable){
-//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
+        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(productService.listAll(pageable), HttpStatus.OK);
     }
 
@@ -42,15 +45,22 @@ public class ProductController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Product> findById(@PathVariable long id){
-//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
+        return ResponseEntity.ok(productService.findByIdOrThrowBadRequestException(id));
+    }
+    @GetMapping(path = "by-id/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Product> findByIdAuthenticationPrincipal(
+            @PathVariable long id,
+            @AuthenticationPrincipal UserDetails userDetails
+    ){
         return ResponseEntity.ok(productService.findByIdOrThrowBadRequestException(id));
     }
     @GetMapping(path = "/find")
     public ResponseEntity<List<Product>> findByName(@RequestParam String name){
-//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(productService.findByName(name));
     }
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Product> save(@RequestBody @Valid ProductPostRequestBody productPostRequestBody){
         return new ResponseEntity<>(productService.save(productPostRequestBody), HttpStatus.CREATED);
     }
@@ -60,9 +70,9 @@ public class ProductController {
         productService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @PutMapping
     public ResponseEntity<Void> replace(@RequestBody ProductPutRequestBody productPutRequestBody){
-//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         productService.replace(productPutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
