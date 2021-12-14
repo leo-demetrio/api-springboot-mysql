@@ -29,8 +29,8 @@ public class PageableResponse<T> extends PageImpl<T> {
         @JsonProperty("totalPages") int totalPages,
         @JsonProperty("numberOfElements") int numberOfElements,
         @JsonProperty("pageable") JsonNode pageable,
-        @JsonProperty("sort") JsonNode sort
-    ) {
+        @JsonProperty("sort") JsonNode sort) {
+
         super(content, PageRequest.of(number, size), totalElements);
 
         this.last = last;
