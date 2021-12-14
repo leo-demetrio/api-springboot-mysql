@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import project.base.studiesspring.service.ProductUserDetailsService;
 
 @EnableWebSecurity
@@ -26,6 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
         http.csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/products/admin/**").hasRole("ADMIN")
+                .antMatchers("/products/**").hasRole("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -37,7 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        log.info("Password encoded {}", passwordEncoder.encode("leo"));
 
         auth.inMemoryAuthentication()
                 .withUser("leo2")

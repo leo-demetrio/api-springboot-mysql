@@ -32,7 +32,7 @@ public class ProductUser implements UserDetails {
     private String password;
     private String authorities;
 
-    @NotEmpty(message = "The product name cannot be null")
+    @NotEmpty(message = "The product's name cannot be empty")
     private String name;
 
     @Override

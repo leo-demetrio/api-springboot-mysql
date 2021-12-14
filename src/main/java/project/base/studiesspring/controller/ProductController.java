@@ -23,7 +23,7 @@ import java.util.List;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/products")
+@RequestMapping("products")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
 
@@ -33,13 +33,11 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Page<Product>> list(Pageable pageable){
-        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(productService.listAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping(path = "/all")
     public ResponseEntity<List<Product>> listAll(){
-//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(productService.listAllNonPageable(), HttpStatus.OK);
     }
 
@@ -48,7 +46,6 @@ public class ProductController {
         return ResponseEntity.ok(productService.findByIdOrThrowBadRequestException(id));
     }
     @GetMapping(path = "by-id/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Product> findByIdAuthenticationPrincipal(
             @PathVariable long id,
             @AuthenticationPrincipal UserDetails userDetails
@@ -60,13 +57,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.findByName(name));
     }
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Product> save(@RequestBody @Valid ProductPostRequestBody productPostRequestBody){
         return new ResponseEntity<>(productService.save(productPostRequestBody), HttpStatus.CREATED);
     }
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id){
-//        log.info(dateutil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         productService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
