@@ -2,11 +2,11 @@ package project.base.studiesspring.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,6 @@ import project.base.studiesspring.service.ProductService;
 import project.base.studiesspring.util.Dateutil;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Log4j2
@@ -32,7 +31,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<Product>> list(Pageable pageable){
+    public ResponseEntity<Page<Product>> list(@ParameterObject Pageable pageable){
         return new ResponseEntity<>(productService.listAll(pageable), HttpStatus.OK);
     }
 
