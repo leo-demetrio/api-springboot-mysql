@@ -1,5 +1,8 @@
 package project.base.studiesspring.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springdoc.api.annotations.ParameterObject;
@@ -31,6 +34,8 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
+    @Operation(summary = "List All products paginated", description = "The size default is 10, use the parameter size to change",
+                tags = {"products"})
     public ResponseEntity<Page<Product>> list(@ParameterObject Pageable pageable){
         return new ResponseEntity<>(productService.listAll(pageable), HttpStatus.OK);
     }
@@ -60,6 +65,11 @@ public class ProductController {
         return new ResponseEntity<>(productService.save(productPostRequestBody), HttpStatus.CREATED);
     }
     @DeleteMapping(path = "/admin/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Successful Operation"),
+            @ApiResponse(responseCode = "400", description = "When product does not Exist in the database")
+    })
+
     public ResponseEntity<Void> delete(@PathVariable long id){
         productService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
