@@ -8,6 +8,9 @@ git clone https://github.com/leo-demetrio/api-springboot-mysql.git
 
 ```
 After clone project and executing, just open the following address and view the project execution:
+
+Credentials username: admin password: admin
+
 ```
 http://localhost:8080/products
 
@@ -29,12 +32,14 @@ http://localhost:8080/products
 * Maven 3.6.3 or higher versions.
 * Intellj IDEA Community Edition or favorite IDE .
 
+<br><br>
+
 <h3>Link Documentation</h3>
-```
-http://localhost:8080/swagger-ui.html
 
 ```
-Datails username: leo2 password: leo2 
+http://localhost:8080/swagger-ui.html
+```
+Credentials username: admin   password: admin 
 ![open_api](https://user-images.githubusercontent.com/47660967/162837969-7d9dc0b3-fd0a-4a8b-ac7c-d2ed5e6ec90d.png)
 
 
