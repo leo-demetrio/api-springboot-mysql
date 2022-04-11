@@ -1,3 +1,4 @@
+
 <h2>Api model with Java application and Spring Boot.</h2>
 
 <h3>Clone project</h3>
@@ -12,26 +13,32 @@ http://localhost:8080/products
 
 ```
 
-The following topics were put into practice:
+<h3>The following topics were put into practice:</h3>
 
-* Documentation link. 
+* Documentation SpringDoc OpenAPI. 
 * Main frameworks for units tests in Java: JUnit and Mockito. 
 * Integration tests.
 * Unit tests for functionality validation: create, read, update and delete.
+* Database MySql and Spring Data JPA
+* Spring Security
 
 
-
-The following prerequisites are necessary for the execution of the project:
+<h3>The following prerequisites are necessary for the execution of the project:</h3>
 
 * Java 11 or higher versions.
 * Maven 3.6.3 or higher versions.
 * Intellj IDEA Community Edition or favorite IDE .
 
+<h3>Link Documentation</h3>
+```
+http://localhost:8080/swagger-ui.html
+
+```
+Datails username: leo2 password: leo2 
+![open_api](https://user-images.githubusercontent.com/47660967/162837969-7d9dc0b3-fd0a-4a8b-ac7c-d2ed5e6ec90d.png)
 
 
-
-
-Below are reference links:
+<h3>Below are reference links:</h3>
 
 * [SDKMan! for managing and installing Java e Maven](https://sdkman.io/)
 * [Reference Intellij IDEA Community, for download](https://www.jetbrains.com/idea/download)
