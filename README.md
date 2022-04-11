@@ -9,7 +9,8 @@ git clone https://github.com/leo-demetrio/api-springboot-mysql.git
 ```
 After clone project and executing, just open the following address and view the project execution:
 
-Credentials username: admin password: admin
+* Update credential database file application.yaml
+* Credentials to login username: admin password: admin
 
 ```
 http://localhost:8080/products
