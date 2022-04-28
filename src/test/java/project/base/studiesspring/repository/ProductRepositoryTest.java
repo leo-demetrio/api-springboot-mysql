@@ -45,8 +45,8 @@ class ProductRepositoryTest {
     @Test
     @DisplayName("Test delete product when successful")
     void delete_RemoveProduct_WhenSuccessful(){
-        Product product = createProduct();
-        Product productSaved = ProductCreator.createProductForBeSaved();
+        Product productForBeSaved = ProductCreator.createProductForBeSaved();
+        Product productSaved = this.productRepository.save(productForBeSaved);
         this.productRepository.delete(productSaved);
         Optional<Product> productOptional = this.productRepository.findById(productSaved.getId());
         Assertions.assertThat(productOptional.isEmpty()).isTrue();
@@ -56,10 +56,10 @@ class ProductRepositoryTest {
     @Test
     @DisplayName("Test find by product for name when successful")
     void findByName_ReturnListProduct_WhenSuccessful(){
-        Product product = createProduct();
-        Product productSaved = ProductCreator.createProductForBeSaved();
+        Product productForBeSaved = ProductCreator.createProductForBeSaved();
+        Product productSaved = this.productRepository.save(productForBeSaved);
         List<Product> productList = this.productRepository.findByName(productSaved.getName());
-        Assertions.assertThat(productList).isEmpty();
+        Assertions.assertThat(productList).isNotEmpty();
         Assertions.assertThat(productList).contains(productSaved);
     }
     @Test
@@ -72,12 +72,13 @@ class ProductRepositoryTest {
     @Test
     @DisplayName("Test throw ConstraintViolationException when name is empty")
     void save_ThrowConstraintViolationException_WhenNameIsEmpty(){
-        Assertions.assertThatThrownBy(() -> ProductCreator.createProductForBeSaved())
+        Product product = new Product();
+        Assertions.assertThatThrownBy(() -> this.productRepository.save(product))
             .isInstanceOf(ConstraintViolationException.class);
 
-        Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
-                .isThrownBy(() -> ProductCreator.createProductForBeSaved())
-                .withMessageContaining("The product name cannot be null");
+//        Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
+//                .isThrownBy(() -> this.productRepository.save(product))
+//                .withMessageContaining("The product name cannot be empty");
     }
     private Product createProduct(){
         return Product.builder().name("Leo test 01").build();
