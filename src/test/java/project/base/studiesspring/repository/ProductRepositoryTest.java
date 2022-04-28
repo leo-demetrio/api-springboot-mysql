@@ -1,5 +1,6 @@
 package project.base.studiesspring.repository;
 
+import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
+@Log4j2
 @DataJpaTest
 @DisplayName("Tests for Product Repository")
 class ProductRepositoryTest {
@@ -31,10 +33,11 @@ class ProductRepositoryTest {
     @Test
     @DisplayName("Test update product when successful")
     void save_UpdateProduct_WhenSuccessful(){
-        Product product = createProduct();
-        Product productSaved = ProductCreator.createProductForBeSaved();
+        Product productForBeSaved = ProductCreator.createProductForBeSaved();
+        Product productSaved = this.productRepository.save(productForBeSaved);
         productSaved.setName("Leo test 01 update");
-        Product productUpdated = ProductCreator.createProductForBeSaved();
+        Product productUpdated = this.productRepository.save(productSaved);
+        log.info("Test product " + productUpdated);
         Assertions.assertThat(productUpdated).isNotNull();
         Assertions.assertThat(productUpdated.getId()).isNotNull();
         Assertions.assertThat(productUpdated.getName()).isEqualTo(productSaved.getName());
