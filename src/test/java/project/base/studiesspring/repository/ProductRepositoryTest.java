@@ -76,9 +76,6 @@ class ProductRepositoryTest {
         Assertions.assertThatThrownBy(() -> this.productRepository.save(product))
             .isInstanceOf(ConstraintViolationException.class);
 
-//        Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
-//                .isThrownBy(() -> this.productRepository.save(product))
-//                .withMessageContaining("The product name cannot be empty");
     }
     private Product createProduct(){
         return Product.builder().name("Leo test 01").build();
