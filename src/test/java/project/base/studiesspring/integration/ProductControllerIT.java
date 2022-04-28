@@ -206,6 +206,6 @@ class ProductControllerIT {
         productUserRepository.save(USER);
         ResponseEntity<Void> productResponseEntity = restTemplateRoleUser.exchange("/products/admin/{id}",HttpMethod.DELETE,null,Void.class, productSaved.getId());
         Assertions.assertThat(productResponseEntity).isNotNull();
-        Assertions.assertThat(productResponseEntity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+        Assertions.assertThat(productResponseEntity.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
     }
 }
