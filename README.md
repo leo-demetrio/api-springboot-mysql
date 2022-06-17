@@ -1,5 +1,7 @@
 
-<h2>Api model with Java application and Spring Boot.</h2>
+<h2>Api model with Java application and Spring Boot.</h2>   
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/leo-demetrio/api-springboot-mysql/maven)
 
 <h3>Clone project</h3>
 
