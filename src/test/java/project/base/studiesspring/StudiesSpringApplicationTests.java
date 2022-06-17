@@ -3,10 +3,10 @@ package project.base.studiesspring;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class StudiesSpringApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 
